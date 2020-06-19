@@ -1,9 +1,6 @@
 <template>
   <div class="idea-card__cardBody">
     <div class="idea-card">
-      <div class="idea-card__headerBlock">
-        <h1 class="idea-card__header">Название идеи</h1>
-      </div>
       <div class="idea-card__description">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, totam?
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci commodi
@@ -13,7 +10,14 @@
         <a-button
           class="idea-card__action"
           type="primary"
-          icon="heart"
+          icon="like"
+          size="large"
+          shape="circle"
+        />
+        <a-button
+          class="idea-card__action"
+          type="primary"
+          icon="dislike"
           size="large"
           shape="circle"
         />
@@ -26,20 +30,22 @@
         />
         <a-button
           class="idea-card__action"
-          type="danger"
-          icon="close"
+          type="primary"
+          icon="message"
           size="large"
           shape="circle"
         />
+        <a-button
+          class="idea-card__action"
+          type="primary"
+          size="large"
+          shape="circle">
+          ...
+        </a-button>
       </div>
     </div>
-    <div class="idea_card__stats">
-      <a-tooltip placement="bottomLeft">
-        <template slot="title">
-          <span>Успейте оставить свое мнение!</span>
-        </template>
-        <a-progress class="daysLeft" type="circle" :percent="75" :format="percent => `${percent} Days`" />
-      </a-tooltip>
+    <div class="idea-card__name-wrapper">
+      <span class="idea-card__name">Название идеи</span>
     </div>
   </div>
 </template>
@@ -56,6 +62,22 @@ export default {
 <style lang="scss">
 .idea-card__cardBody {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background-color 0.125s ease-out;
+}
+.idea-card__cardBody:hover {
+  background-color: #e1e3e8;
+}
+.idea-card__name-wrapper {
+  padding: 5px 10px;
+}
+.idea-card__name {
+  color: #434343;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .idea_card__stats {
@@ -70,17 +92,10 @@ export default {
   flex-grow: 3;
   flex-flow: column nowrap;
   align-items: center;
-  border-radius: 4px;
-  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);*/
+  border-radius: 8px;
   transition: 0.3s;
-  padding: 4px 16px;
-  min-width: 200px;
-  background-color: white;
-}
-
-.idea-card__headerBlock {
-  position: relative;
-  width: 100%;
+  padding: 15px 20px;
+  background-color: #ffffff;
 }
 
 .daysLeft {
@@ -95,6 +110,7 @@ export default {
 
   .idea-card__action {
     margin-right: 16px;
+    font-weight: bold;
   }
 }
 </style>
