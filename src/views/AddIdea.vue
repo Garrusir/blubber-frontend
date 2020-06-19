@@ -1,20 +1,12 @@
 <template>
   <div class="main-container">
-    <div class="cards">
-      <Card />
-    </div>
+    <h2>Создать идею</h2>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Card from "@/components/Card.vue";
-
 export default {
-  name: "Home",
-  components: {
-    Card
-  }
+  name: "AddIdea"
 };
 </script>
 
@@ -23,9 +15,5 @@ export default {
   display: flex;
   flex-grow: 1;
   background-color: #f3f5f7;
-}
-
-.cards {
-  margin: 16px;
 }
 </style>

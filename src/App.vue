@@ -1,20 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Header />
     <router-view />
   </div>
 </template>
-
+<script>
+import Header from "./components/Header";
+export default {
+  components: {
+    Header
+  }
+};
+</script>
 <style lang="scss">
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-grow: 1;
+  flex-flow: column nowrap;
 }
 
 #nav {
