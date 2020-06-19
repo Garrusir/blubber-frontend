@@ -12,7 +12,7 @@ export default {
     }
   },
   mutations: {
-    setLoadings(state, value) {
+    setLoading(state, value) {
       state.loading = value;
     },
     setCurrentPage(state, value) {

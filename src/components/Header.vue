@@ -8,7 +8,14 @@
       <a-menu-item key="Add"> Создать идею </a-menu-item>
       <a-menu-item key="Favorite"> Избранное </a-menu-item>
     </a-menu>
-    <div class="profile">
+
+    <div v-if="true">
+      <a-button @click="openAuthPopup(true)" type="primaty" size="large"
+        >Войти</a-button
+      >
+    </div>
+
+    <div v-else class="profile">
       <a-button type="normal" icon="user" size="large" shape="circle" />
     </div>
   </div>
@@ -27,6 +34,9 @@ export default {
   methods: {
     go(routeName) {
       this.$router.push({ name: routeName }).catch(() => {});
+    },
+    openAuthPopup(value) {
+      this.$store.commit("setOpenLoginPopup", value);
     }
   },
   computed: {
