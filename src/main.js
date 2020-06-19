@@ -16,7 +16,9 @@ import {
   FormModel,
   Form,
   Input,
-  Icon
+  Icon,
+  DatePicker,
+  Select
 } from "ant-design-vue";
 const { Step } = Steps;
 Vue.use(Button);
@@ -29,7 +31,9 @@ Vue.use(Input);
 Vue.use(Icon);
 Vue.use(Steps);
 Vue.use(Step);
-Vue.use(Tooltip)
+Vue.use(Tooltip);
+Vue.use(DatePicker);
+Vue.use(Select);
 
 new Vue({
   router,
