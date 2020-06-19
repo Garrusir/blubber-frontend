@@ -2,9 +2,7 @@
   <div class="idea-card__cardBody">
     <div class="idea-card">
       <div class="idea-card__description">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, totam?
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci commodi
-        est harum, hic impedit laborum molestias officiis quo repellat tenetur?
+        <slot name="description"></slot>
       </div>
       <div class="idea-card__actions">
         <a-button
@@ -45,7 +43,9 @@
       </div>
     </div>
     <div class="idea-card__name-wrapper">
-      <span class="idea-card__name">Название идеи</span>
+      <span class="idea-card__name">
+        <slot name="name"></slot>
+      </span>
     </div>
   </div>
 </template>

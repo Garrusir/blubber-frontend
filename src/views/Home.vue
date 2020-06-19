@@ -12,6 +12,7 @@
 // @ is an alias to /src
 import Card from "@/components/Card.vue";
 import List from "@/components/List/List";
+import { getRecords } from "../utils/fetch-utils";
 
 export default {
   name: "Home",
@@ -20,6 +21,8 @@ export default {
     Card
   }
 };
+
+console.log(getRecords());
 </script>
 
 <style lang="scss">
