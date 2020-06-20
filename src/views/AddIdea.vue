@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { postRecords, recordsUrl } from "../utils/fetch-utils";
+import { postDataWithoutResponse, recordsUrl } from "../utils/fetch-utils";
 //TODO: Использовать VUEX
 export default {
   name: "AddIdea",
@@ -91,7 +91,7 @@ export default {
           });
           this.imagesList.forEach(image => formData.append("images[]", image));
 
-          postRecords(recordsUrl, formData);
+          postDataWithoutResponse(recordsUrl, formData);
           this.imagesList = [];
         }
       });
