@@ -116,7 +116,7 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  margin: 16px 0;
+  margin: 16px 0 0;
 
   .idea-card__action {
     margin-right: 16px;
