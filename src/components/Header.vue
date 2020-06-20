@@ -6,7 +6,6 @@
     <a-menu v-model="current" mode="horizontal">
       <a-menu-item key="Home">Список идей </a-menu-item>
       <a-menu-item key="Add"> Создать идею </a-menu-item>
-      <a-menu-item key="Favorite"> Избранное </a-menu-item>
     </a-menu>
 
     <div v-if="!user">

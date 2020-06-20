@@ -13,7 +13,7 @@
         <img :src="`${host}${record.images}`" :alt="record.name" />
       </div>
       <div class="idea-card__description">
-        {{ record.description }}
+        {{ record.description ? cutDescription(record.description) : "" }}
       </div>
       <div class="idea-card__actions">
         <div v-if="isEstimated" class="idea-card__actionsOutlines">
@@ -101,6 +101,13 @@ export default {
       this.$store.dispatch("dislikeIdea", this.record.id);
       this.isEstimated = true;
       this.mark = "dislike";
+    },
+    cutDescription(desc) {
+      if (desc.length > 250) {
+        const text = desc.slice(0, 250);
+        return `${text}...`;
+      }
+      return desc;
     }
   }
 };
