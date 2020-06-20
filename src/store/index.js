@@ -20,7 +20,6 @@ export default new Vuex.Store({
     ideaManager,
     userProfileManager,
     commentManager,
-    userProfileManager,
     userManager
   }
 });
