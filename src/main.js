@@ -4,9 +4,11 @@ import router from "./router";
 import store from "./store";
 import "ant-design-vue/dist/antd.css";
 import moment from "moment";
+import _ from 'lodash';
 
 Vue.config.productionTip = false;
 Vue.prototype.$moment = moment;
+Vue.prototype.$lodash = _;
 
 import {
   Button,

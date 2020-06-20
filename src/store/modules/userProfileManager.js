@@ -1,7 +1,9 @@
 export default {
   state: {
     archiveIdeas: null,
-    progressIdes: null
+    progressIdes: null,
+    allInterests: null,
+    userInterests: null,
   },
   getters: {
     getArchiveIdeas(state) {
@@ -9,6 +11,12 @@ export default {
     },
     getProgressIdes(state) {
       return state.progressIdes;
+    },
+    getAllInterests(state) {
+      return state.allInterests;
+    },
+    getUserInterests(state) {
+      return state.userInterests;
     }
   },
   mutations: {
@@ -17,6 +25,12 @@ export default {
     },
     setProgressIdes(state, value) {
       state.progressIdes = value;
+    },
+    setAllInterests(state, value) {
+      state.allInterests = value;
+    },
+    setUserInterests(state, value) {
+      state.userInterests = value;
     }
   },
   actions: {
@@ -103,6 +117,50 @@ export default {
       ];
 
       commit("setProgressIdes", data);
+    },
+    updateAllInterests({ commit }) {
+      const data = [
+        {
+          id: 1,
+          title: 'Юриспруденция',
+          discription: 'Тут будет интересно всем!'
+        },
+        {
+          id: 2,
+          title: 'Big Data',
+          discription: 'Анализ данных'
+        },
+        {
+          id: 3,
+          title: 'IT',
+          discription: 'Программирование'
+        },
+        {
+          id: 4,
+          title: 'Финансы',
+          discription: 'Новые идеи для главной отрасли!'
+        },
+        {
+          id: 5,
+          title: 'Операционная деятельность',
+          discription: 'Важно'
+        },
+        {
+          id: 6,
+          title: 'Общение с клиентами',
+          discription: 'Присоединяйся к нам!'
+        },
+      ];
+
+      commit("setAllInterests", data);
+    },
+    updateUserInterests({ commit }) {
+      const data = [1, 3, 6];
+
+      commit("setUserInterests", data);
+    },
+    saveNewUserInterest({ getters }) {
+      console.log('save new user interests', getters.getUserInterests)
     }
   }
 };

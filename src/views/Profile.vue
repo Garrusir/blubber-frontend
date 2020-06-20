@@ -41,23 +41,21 @@
         <a-layout-content :style="{ background: '#fff', padding: '24px', minHeight: '280px', margin: '16px 0' }">
           <span v-if="progressIdeas.length === 0">Пока что у вас нет идей! Давайте создадим первую!</span>
           <div v-if="currentTab[0] === '1' && openedCard === ''">
-            <ProfileCard
-              v-for="idea in progressIdeas"
-              :key="idea.id"
-              :record="idea"
-              @cardOpened="openCard"
-            />
+            <ProfileCard v-for="idea in progressIdeas" :key="idea.id" :record="idea" @cardOpened="openCard" />
           </div>
           <div v-if="currentTab[0] === '2' && openedCard === ''">
-            <ProfileCard
-              v-for="idea in archIdeas"
-              :key="idea.id"
-              :record="idea"
-              @cardOpened="openCard"
-            />
+            <ProfileCard v-for="idea in archIdeas" :key="idea.id" :record="idea" @cardOpened="openCard" />
           </div>
           <div v-if="openedCard">
             <ProfileIdea :ideaRecord="openedCard" @cardClosed="closeCard" />
+          </div>
+          <div v-if="currentTab[0] === '5' && openedCard === ''" class="interestsWrapper">
+            <interest
+              v-for="interest in allInterests"
+              :key="interest.id"
+              :interest="interest"
+              @changeInterestState="changeInterest"
+            />
           </div>
         </a-layout-content>
       </a-layout>
@@ -67,24 +65,32 @@
 <script>
 import ProfileIdea from "@/components/ProfileComponents/ProfileIdea";
 import ProfileCard from "@/components/ProfileComponents/ProfileCard";
+import Interest from "@/components/ProfileComponents/Interest";
+import { map, sortBy, cloneDeep } from "lodash";
 
 export default {
   name: "Profile",
   components: {
     ProfileIdea,
-    ProfileCard
+    ProfileCard,
+    Interest
   },
   data() {
     return {
       currentTab: ["1"],
       progressIdeas: [],
       openedCard: "",
-      archIdeas: []
+      archIdeas: [],
+      allInterests: [],
+      userInterests: []
     };
   },
   mounted() {
     this.$store.dispatch("updateProgressIdes");
     this.progressIdeas = this.$store.getters.getProgressIdes;
+
+    this.$store.dispatch("updateAllInterests");
+    this.allInterests = this.$store.getters.getAllInterests;
   },
   methods: {
     openCard(idea) {
@@ -102,8 +108,46 @@ export default {
         this.$store.dispatch("updateArchiveIdeas");
         this.archIdeas = this.$store.getters.getArchiveIdeas;
       }
+      if (e.key === "5" && !this.userInterests.length) {
+        this.$store.dispatch("updateUserInterests");
+        this.userInterests = this.$store.getters.getUserInterests;
+        // this.allInterests = this.allInterests.map();
+        const mappedValues = map(this.allInterests, interest => {
+          if (this.userInterests.indexOf(interest.id) !== -1) {
+            return {
+              ...interest,
+              isChosen: true
+            };
+          } else return { ...interest };
+        });
+        this.allInterests = sortBy(mappedValues, ["isChosen"]);
+      }
+    },
+    changeInterest(interest) {
+      const newChoice = !this.allInterests[this.allInterests.indexOf(interest)].isChosen;
+      this.allInterests[this.allInterests.indexOf(interest)] = {
+        ...interest,
+        isChosen: newChoice
+      };
+      let newInterests = cloneDeep(this.userInterests);
+      if (this.userInterests.includes(interest.id)) {
+        newInterests = newInterests.filter(el => el !== interest.id);
+      } else newInterests.push(interest.id);
+      this.$store.commit("setUserInterests", newInterests);
+      this.userInterests = newInterests;
+      this.$forceUpdate();
     }
+  },
+  beforeDestroy() {
+    this.$store.dispatch("saveNewUserInterest");
   }
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.interestsWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+</style>
