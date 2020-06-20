@@ -13,6 +13,7 @@ export default {
 </script>
 <style>
 .btn {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  margin-right: 15px;
 }
 </style>

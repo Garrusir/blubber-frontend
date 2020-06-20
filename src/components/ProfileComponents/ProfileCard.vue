@@ -43,7 +43,10 @@ export default {
   padding: 10px;
   border-radius: 10px;
   width: 100%;
+  min-height: unset;
+  border: 1px solid #e6eaf0;
   transition: background-color 0.125s ease-out;
+  margin-bottom: 20px;
 }
 .idea-card__cardBody:hover {
   background-color: #e1e3e8;

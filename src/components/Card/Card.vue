@@ -16,8 +16,34 @@
         {{ record.description }}
       </div>
       <div class="idea-card__actions">
-        <a-button class="idea-card__action" type="primary" icon="like" size="large" shape="circle" />
-        <a-button class="idea-card__action" type="primary" icon="dislike" size="large" shape="circle" />
+        <div v-if="isEstimated" class="idea-card__actionsOutlines">
+          <a-icon type="like" :theme="mark === 'like' ? 'filled' : 'outlined'" />
+          <span style="margin-right: 10px">
+            {{ likes }}
+          </span>
+          <a-icon type="dislike" :theme="mark === 'dislike' ? 'filled' : 'outlined'" />
+          <span>
+            {{ dislikes }}
+          </span>
+        </div>
+        <a-button
+          v-if="!isEstimated"
+          class="idea-card__action"
+          type="primary"
+          icon="like"
+          size="large"
+          shape="circle"
+          @click="likeIdea"
+        />
+        <a-button
+          v-if="!isEstimated"
+          class="idea-card__action"
+          type="primary"
+          icon="dislike"
+          size="large"
+          shape="circle"
+          @click="dislikeIdea"
+        />
         <a-button class="idea-card__action" type="primary" icon="star" size="large" shape="circle" />
         <a-button
           class="idea-card__action"
@@ -41,18 +67,20 @@
 </template>
 
 <script>
-// import Button from "./Button";
-
 export default {
   name: "IdeaCard",
   data() {
     return {
-      isCoffeeInviteVisible: true
-    }
+      isCoffeeInviteVisible: true,
+      isEstimated: false,
+      mark: "",
+      likes: 0,
+      dislikes: 0
+    };
   },
   props: {
     record: Object,
-    default: () => {},
+    default: () => {}
   },
   computed: {
     host() {
@@ -61,11 +89,20 @@ export default {
   },
   methods: {
     sendCoffeeInvitation() {
-      this.$store.dispatch('sendUserCoffeeNotification');
+      this.$store.dispatch("sendUserCoffeeNotification");
       this.isCoffeeInviteVisible = false;
+    },
+    likeIdea() {
+      this.$store.dispatch("likeIdea", this.record.id);
+      this.isEstimated = true;
+      this.mark = "like";
+    },
+    dislikeIdea() {
+      this.$store.dispatch("dislikeIdea", this.record.id);
+      this.isEstimated = true;
+      this.mark = "dislike";
     }
   }
-  // components: { Button }
 };
 </script>
 
@@ -74,20 +111,27 @@ export default {
   font-size: 18px;
 }
 .coffee_invite__badge {
-  background-color: #FFD700;
+  background-color: #ffd700;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 15px;
-  left: -10px;
+  position: absolute !important;
+  top: -5px;
+  left: -3px;
   border-radius: 50%;
   width: 35px;
   height: 35px;
   cursor: pointer;
   &:hover {
-    background-color:	#FFDF00;
+    background-color: #ffdf00;
   }
+}
+.idea-card__actionsOutlines {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: -187px;
+  top: 23px;
 }
 .idea-card__description {
   padding: 15px 20px;
@@ -100,7 +144,9 @@ export default {
   border-radius: 10px;
   transition: background-color 0.125s ease-out;
   width: 600px;
+  position: relative;
   min-height: 250px;
+  margin-bottom: 10px;
 }
 .idea-card__cardBody:hover {
   background-color: #e1e3e8;
@@ -118,6 +164,8 @@ export default {
   width: 100%;
 }
 .idea-card__image img {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   width: 100%;
 }
 
@@ -145,6 +193,7 @@ export default {
 }
 
 .idea-card__actions {
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;

@@ -157,6 +157,36 @@ export default {
           title: 'Общение с клиентами',
           discription: 'Присоединяйся к нам!'
         },
+        {
+          id: 11,
+          title: 'Закупки',
+          discription: 'Тут будет интересно всем!'
+        },
+        {
+          id: 21,
+          title: 'Администрация',
+          discription: 'Анализ данных'
+        },
+        {
+          id: 31,
+          title: 'Стажеры',
+          discription: 'Программирование'
+        },
+        {
+          id: 14,
+          title: 'Менеджмент',
+          discription: 'Новые идеи для главной отрасли!'
+        },
+        {
+          id: 51,
+          title: 'Нетоварные закупки',
+          discription: 'Важно'
+        },
+        {
+          id: 16,
+          title: 'Коммерция',
+          discription: 'Присоединяйся к нам!'
+        },
       ];
 
       commit("setAllInterests", data);

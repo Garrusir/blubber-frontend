@@ -31,6 +31,15 @@ export default {
       axios.post(`${host}/api/records/`, data).then(response => {
         console.log("response", response);
       });
+    },
+    likeIdea() {
+      console.log('liked')
+    },
+    dislikeIdea() {
+      console.log('disliked')
+    },
+    starIdea() {
+      console.log('star')
     }
   }
 };
