@@ -8,6 +8,12 @@
           :default-open-keys="['sub1']"
           :style="{ height: '100%', borderRight: 0 }"
         >
+          <a-sub-menu key="sub" style="margin-top: 20px;">
+            <span slot="title"><a-icon type="notification" />Уведомления</span>
+            <a-menu-item key="10" @click="handleNavClick">
+              Время для кофе
+            </a-menu-item>
+          </a-sub-menu>
           <a-sub-menu key="sub1">
             <span slot="title"><a-icon type="fire" />Список твоих идей</span>
             <a-menu-item key="1" @click="handleNavClick">

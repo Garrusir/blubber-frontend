@@ -10,6 +10,7 @@ Vue.prototype.$moment = moment;
 
 import {
   Button,
+  Badge,
   Menu,
   Steps,
   Progress,
@@ -47,6 +48,7 @@ Vue.use(Select);
 Vue.use(Upload);
 Vue.use(Avatar);
 Vue.use(Card);
+Vue.use(Badge);
 
 new Vue({
   router,

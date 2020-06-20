@@ -42,6 +42,7 @@ export default {
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
+  width: 100%;
   transition: background-color 0.125s ease-out;
 }
 .idea-card__cardBody:hover {
