@@ -86,7 +86,6 @@ export default {
         text: this.message
       };
 
-      console.log("comment", comment);
       this.$store.dispatch("sendComment", comment);
       e.preventDefault();
     }
@@ -99,10 +98,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .idea-info__image {
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
+
+  img {
+    width: 100%;
+  }
 }
 </style>

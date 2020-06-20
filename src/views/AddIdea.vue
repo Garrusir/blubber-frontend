@@ -113,7 +113,9 @@ export default {
           this.imagesList.forEach(image => formData.append("images[]", image));
 
           // postDataWithoutResponse(recordsUrl, formData);
-          this.$store.dispatch("saveIdea", formData);
+          this.$store.dispatch("saveIdea", formData).then(() => {
+            this.$router.push({ name: "Home" });
+          });
           this.imagesList = [];
         }
       });
