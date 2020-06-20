@@ -1,11 +1,19 @@
 <template>
   <div class="idea-card__cardBody">
+    <a-tooltip placement="topLeft" v-if="isCoffeeInviteVisible">
+      <template slot="title">
+        <span>Пригласите автора идеи на кофе!</span>
+      </template>
+      <a-badge class="coffee_invite__badge" @click="sendCoffeeInvitation">
+        <a-icon type="coffee" class="coffee_invite" />
+      </a-badge>
+    </a-tooltip>
     <div v-on:click="$emit('card:open', record)" class="idea-card">
-      <div v-if="record.images === null" class="idea-card__description">
-        {{ record.description }}
-      </div>
-      <div v-else class="idea-card__image">
+      <div v-if="record.images !== null" class="idea-card__image">
         <img :src="`${host}${record.images}`" :alt="record.name" />
+      </div>
+      <div class="idea-card__description">
+        {{ record.description }}
       </div>
       <div class="idea-card__actions">
         <a-button class="idea-card__action" type="primary" icon="like" size="large" shape="circle" />
@@ -37,13 +45,24 @@
 
 export default {
   name: "IdeaCard",
+  data() {
+    return {
+      isCoffeeInviteVisible: true
+    }
+  },
   props: {
     record: Object,
-    default: () => {}
+    default: () => {},
   },
   computed: {
     host() {
       return this.$store.getters.getHost;
+    }
+  },
+  methods: {
+    sendCoffeeInvitation() {
+      this.$store.dispatch('sendUserCoffeeNotification');
+      this.isCoffeeInviteVisible = false;
     }
   }
   // components: { Button }
@@ -51,6 +70,28 @@ export default {
 </script>
 
 <style lang="scss">
+.coffee_invite {
+  font-size: 18px;
+}
+.coffee_invite__badge {
+  background-color: #FFD700;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 15px;
+  left: -10px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  &:hover {
+    background-color:	#FFDF00;
+  }
+}
+.idea-card__description {
+  padding: 15px 20px;
+}
 .idea-card__cardBody {
   display: flex;
   flex-direction: column;
@@ -58,6 +99,8 @@ export default {
   padding: 10px;
   border-radius: 10px;
   transition: background-color 0.125s ease-out;
+  width: 600px;
+  min-height: 250px;
 }
 .idea-card__cardBody:hover {
   background-color: #e1e3e8;
@@ -71,6 +114,9 @@ export default {
   font-weight: bold;
 }
 
+.idea-card__image {
+  width: 100%;
+}
 .idea-card__image img {
   width: 100%;
 }
@@ -83,6 +129,7 @@ export default {
 }
 
 .idea-card {
+  justify-content: space-between;
   display: flex;
   flex-grow: 3;
   width: 100%;
@@ -90,7 +137,6 @@ export default {
   align-items: center;
   border-radius: 8px;
   transition: 0.3s;
-  padding: 15px 20px;
   background-color: #ffffff;
 }
 
@@ -102,7 +148,7 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  margin: 16px 0 0;
+  margin: 16px 0;
 
   .idea-card__action {
     margin-right: 16px;
