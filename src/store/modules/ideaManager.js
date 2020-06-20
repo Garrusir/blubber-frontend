@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
   state: {
     ideaList: null
@@ -22,6 +24,13 @@ export default {
         .then(data => {
           commit("setIdeaList", data);
         });
+    },
+    saveIdea({ getters }, data) {
+      const host = getters.getHost;
+
+      axios.post(`${host}/api/records/`, data).then(response => {
+        console.log("response", response);
+      });
     }
   }
 };

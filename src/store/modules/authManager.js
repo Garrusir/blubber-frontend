@@ -24,22 +24,17 @@ export default {
   },
   actions: {
     signUp({ commit, getters }, { login, password }) {
-      // const formData = new FormData();
-      // formData.append("username", login);
-      // formData.append("password", password);
+      const formData = new FormData();
+      formData.append("username", login);
+      formData.append("password", password);
       console.log("login data", login, password);
       // const userJson = await postDataWithResponse(loginUrl, formData);
       const host = getters.getHost;
 
-      axios
-        .post(`${host}/profile/login/`, {
-          username: login,
-          password
-        })
-        .then(response => {
-          console.log("response", response);
-          commit("setUser", response);
-        });
+      axios.post(`${host}/profile/login/`, formData).then(response => {
+        console.log("response", response);
+        commit("setUser", response);
+      });
       // fetch(`${host}/profile/login/`, {
       //   method: "POST", // *GET, POST, PUT, DELETE, etc.
       //   // mode: "no-cors", // no-cors, *cors, same-origin

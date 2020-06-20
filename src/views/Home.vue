@@ -65,6 +65,7 @@ export default {
   display: flex;
   flex-grow: 1;
   background-color: #f3f5f7;
+  overflow: scroll;
 }
 .list-wrapper {
   max-width: 1732px;

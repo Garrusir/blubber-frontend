@@ -37,6 +37,7 @@ body {
   display: flex;
   flex-grow: 1;
   flex-flow: column nowrap;
+  overflow: hidden;
 }
 
 #nav {

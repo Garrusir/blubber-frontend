@@ -5,7 +5,7 @@
         {{ record.description }}
       </div>
       <div v-else class="idea-card__image">
-        <img :src="record.images" :alt="record.name" />
+        <img :src="`${host}${record.images}`" :alt="record.name" />
       </div>
       <div class="idea-card__actions">
         <a-button class="idea-card__action" type="primary" icon="like" size="large" shape="circle" />
@@ -40,6 +40,11 @@ export default {
   props: {
     record: Object,
     default: () => {}
+  },
+  computed: {
+    host() {
+      return this.$store.getters.getHost;
+    }
   }
   // components: { Button }
 };
