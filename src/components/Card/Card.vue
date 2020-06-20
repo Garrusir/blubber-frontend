@@ -19,11 +19,11 @@
         <div v-if="isEstimated" class="idea-card__actionsOutlines">
           <a-icon type="like" :theme="mark === 'like' ? 'filled' : 'outlined'" />
           <span style="margin-right: 10px">
-            {{ record.likes_count + 1 }}
+            {{ mark === "like" ? record.likes_count + 1 : record.likes_count }}
           </span>
           <a-icon type="dislike" :theme="mark === 'dislike' ? 'filled' : 'outlined'" />
           <span>
-            {{ record.dislikes_count + 1 }}
+            {{ mark === "dislike" ? record.dislikes_count + 1 : record.dislikes_count }}
           </span>
         </div>
         <a-button
