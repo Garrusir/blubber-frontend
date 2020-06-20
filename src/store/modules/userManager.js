@@ -20,14 +20,18 @@ export default {
       // console.log("userId", userId);
       const data = [
         {
-          id: 6,
-          userId: 312,
-          isUnread: false,
+          id: 1,
+          userId: 332,
+          author: 'Петр Петров',
+          isUnread: true,
+          date: 'Sat Jun 20 2020 12:39:37 GMT+0300 (Москва, стандартное время)'
         },
         {
           id: 6,
-          userId: 332,
-          isUnread: true,
+          userId: 312,
+          author: 'Ирина Васильева',
+          isUnread: false,
+          date: 'Sat Jun 15 2020 12:39:37 GMT+0300 (Москва, стандартное время)'
         }
       ];
 

@@ -49,9 +49,9 @@ export default {
       const data = [
         {
           id: 6,
-          name: "asdfsdafd",
+          name: "Моя первая идея",
           images: "/media/images/hall2_ndsjvoz.jpg",
-          description: "asdsfdasd",
+          description: "Создать собственную линейку курсов для повышения осведомленности о ...",
           categories: "6",
           likes_count: 0,
           dislikes_count: 0,
@@ -62,9 +62,9 @@ export default {
         },
         {
           id: 7,
-          name: "Идеистая идея",
+          name: "Идея номер 2",
           images: "/media/images/multfilm_lyagushka_32117.jpg",
-          description: "Самая топовая илеяя, которую нужно выбрать",
+          description: "Уверен, среди вас найдутся многие, кто хотел бы ...",
           categories: "2",
           likes_count: 0,
           dislikes_count: 0,
