@@ -23,8 +23,6 @@ export default {
   },
   actions: {
     async signUp({ commit }, { login, password }) {
-      console.log("sign up");
-      console.log(login, password);
       const formData = new FormData();
       formData.append("username", login);
       formData.append("password", password);
