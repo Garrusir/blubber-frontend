@@ -9,10 +9,8 @@
       <a-menu-item key="Favorite"> Избранное </a-menu-item>
     </a-menu>
 
-    <div v-if="true">
-      <a-button @click="openAuthPopup(true)" type="primaty" size="large"
-        >Войти</a-button
-      >
+    <div v-if="!user">
+      <a-button @click="openAuthPopup(true)" type="primaty" size="large">Войти</a-button>
     </div>
 
     <div v-else class="profile">
@@ -47,6 +45,9 @@ export default {
       set(value) {
         this.$store.commit("setCurrentPage", value);
       }
+    },
+    user() {
+      return this.$store.getters.getUser();
     }
   },
   data() {
