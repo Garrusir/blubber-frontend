@@ -10,9 +10,7 @@
         {{ idea.description }}
       </div>
 
-      <div class="idea-info__participants">
-        {{ message }}
-      </div>
+      <div class="idea-info__participants"></div>
     </div>
 
     <div class="idea-comments">
@@ -23,7 +21,7 @@
       </div>
 
       <div class="idea-comments__form">
-        <a-form @submit="this.sendComment">
+        <a-form>
           <a-form-item>
             <a-textarea
               placeholder="Что вы об этом думаете?"
@@ -33,7 +31,15 @@
           </a-form-item>
 
           <a-form-item>
-            <a-button htmlType="submit" style="width: 100%" type="primary"> Отправить </a-button>
+            <a-button
+              @click="sendComment"
+              htmlType="submit"
+              style="width: 100%"
+              type="primary"
+              :disabled="!this.message"
+            >
+              Отправить
+            </a-button>
           </a-form-item>
         </a-form>
       </div>
@@ -62,13 +68,28 @@ export default {
   computed: {
     host() {
       return this.$store.getters.getHost;
+    },
+    user() {
+      return this.$store.getters.getUser;
     }
   },
   methods: {
     handleCancel() {
       console.log("close modal");
     },
-    sendComment() {}
+    sendComment(e) {
+      if (!this.message) return;
+
+      const comment = {
+        record: this.idea.id,
+        author: this.user.id,
+        text: this.message
+      };
+
+      console.log("comment", comment);
+      this.$store.dispatch("sendComment", comment);
+      e.preventDefault();
+    }
   },
   data: () => {
     return {
