@@ -27,7 +27,7 @@ export default {
       formData.append("username", login);
       formData.append("password", password);
       const userJson = await postDataWithResponse(loginUrl, formData);
-      commit("SET_USER", userJson);
+      commit("setUser", userJson);
     }
   }
 };

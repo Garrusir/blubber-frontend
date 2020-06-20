@@ -12,6 +12,11 @@ export default {
   components: {
     Header,
     LoginPopup
+  },
+  created() {
+    if (localStorage && localStorage.userId) {
+      this.$store.commit("setUser");
+    }
   }
 };
 </script>
