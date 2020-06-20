@@ -1,9 +1,9 @@
-import { loginUrl, postDataWithResponse } from "../../utils/fetch-utils";
+// import { loginUrl, postDataWithResponse } from "../../utils/fetch-utils";
 
 export default {
   state: {
     user: null,
-    openLoginPopup: true
+    openLoginPopup: false
   },
   getters: {
     isOpenLoginPopup(state) {
@@ -22,12 +22,28 @@ export default {
     }
   },
   actions: {
-    async signUp({ commit }, { login, password }) {
-      const formData = new FormData();
-      formData.append("username", login);
-      formData.append("password", password);
-      const userJson = await postDataWithResponse(loginUrl, formData);
-      commit("setUser", userJson);
+    signUp({ commit, getters }, data) {
+      // const formData = new FormData();
+      // formData.append("username", login);
+      // formData.append("password", password);
+      console.log("login data", data);
+      // const userJson = await postDataWithResponse(loginUrl, formData);
+      const host = getters.getHost;
+
+      fetch(`${host}/profile/login/`, {
+        method: "POST",
+        credentials: "omit",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          commit("setUser", data);
+        });
     }
   }
 };
