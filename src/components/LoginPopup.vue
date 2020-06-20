@@ -12,7 +12,7 @@
       >
         <a-input
           v-decorator="[
-            'email',
+            'login',
             {
               rules: [{ required: true, message: 'Введите email!' }]
             }
@@ -104,7 +104,6 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          // console.log("Received values of form: ", values);
           this.$store.commit("setLoading", true);
           this.$store.dispatch("signUp", values).then(result => {
             console.log("result", result);

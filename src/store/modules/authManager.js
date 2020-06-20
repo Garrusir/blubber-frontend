@@ -1,3 +1,5 @@
+import { loginUrl, postDataWithResponse } from "../../utils/fetch-utils";
+
 export default {
   state: {
     user: null,
@@ -15,15 +17,17 @@ export default {
     setOpenLoginPopup(state, value) {
       state.openLoginPopup = value;
     },
-    setUser(state, value) {
+    SET_USER: (state, value) => {
       state.user = value;
     }
   },
   actions: {
-    signUp({ commit }, { login, password }) {
-      console.log("sign up");
-      console.log(login, password);
-      commit("setUser", { name: "user" });
+    async signUp({ commit }, { login, password }) {
+      const formData = new FormData();
+      formData.append("username", login);
+      formData.append("password", password);
+      const userJson = await postDataWithResponse(loginUrl, formData);
+      commit("SET_USER", userJson);
     }
   }
 };
