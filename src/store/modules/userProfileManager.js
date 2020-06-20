@@ -4,6 +4,7 @@ export default {
     progressIdes: null,
     allInterests: null,
     userInterests: null,
+    userTeamsPage: null,
   },
   getters: {
     getArchiveIdeas(state) {
@@ -17,6 +18,9 @@ export default {
     },
     getUserInterests(state) {
       return state.userInterests;
+    },
+    getUserTeamsPage(state) {
+      return state.userTeamsPage;
     }
   },
   mutations: {
@@ -31,6 +35,9 @@ export default {
     },
     setUserInterests(state, value) {
       state.userInterests = value;
+    },
+    setUserTeamsPage(state, value) {
+      state.userTeamsPage = value;
     }
   },
   actions: {
@@ -161,6 +168,44 @@ export default {
     },
     saveNewUserInterest({ getters }) {
       console.log('save new user interests', getters.getUserInterests)
+    },
+    updateUserTeamsPage({ commit }) {
+      const data = [
+        {
+          id: 7,
+          name: "Идеистая идея",
+          images: "/media/images/multfilm_lyagushka_32117.jpg",
+          description: "Самая топовая идея, которую нужно выбрать",
+          categories: "2",
+          likes_count: 0,
+          dislikes_count: 0,
+          threshold_of_success: 60,
+          is_passed: false,
+          status: -1,
+          author: 1,
+          dateOfMeeting: 'Sat Jun 19 2020 12:39:37 GMT+0300 (Москва, стандартное время)',
+          deadline: 'Sat Aug 17 2020 12:39:37 GMT+0300 (Москва, стандартное время)',
+          team: ['212', '3123sa', '1242qa', '12323q', '23qeas', '231qqaeq2', '123aweae']
+        },
+        {
+          id: 27,
+          name: "Идея для программистов",
+          images: "/media/images/multfilm_lyagushka_32117.jpg",
+          description: "Хорошая идея, требуются дороботки, со списком можно ознакомится на встрече",
+          categories: "2",
+          likes_count: 0,
+          dislikes_count: 0,
+          threshold_of_success: 60,
+          is_passed: false,
+          status: -1,
+          author: 1,
+          dateOfMeeting: 'Sat Jun 19 2020 12:39:37 GMT+0300 (Москва, стандартное время)',
+          deadline: 'Sat Aug 17 2020 12:39:37 GMT+0300 (Москва, стандартное время)',
+          team: ['212', '3123sa', '1242qa']
+        }
+      ];
+
+      commit("setUserTeamsPage", data);
     }
   }
 };

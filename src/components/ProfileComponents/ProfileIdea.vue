@@ -63,5 +63,6 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  min-height: 200px;
 }
 </style>

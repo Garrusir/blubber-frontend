@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <a-layout>
+    <a-layout style="height: 100%;">
       <a-layout-sider width="200" style="background: #fff">
         <a-menu
           mode="inline"
@@ -19,6 +19,9 @@
           </a-sub-menu>
           <a-sub-menu key="sub3">
             <span slot="title"><a-icon type="star" />Избранное</span>
+            <a-menu-item key="8" @click="handleNavClick">
+              Команды
+            </a-menu-item>
             <a-menu-item key="3" @click="handleNavClick">
               Идеи
             </a-menu-item>
@@ -38,7 +41,7 @@
         </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
-        <a-layout-content :style="{ background: '#fff', padding: '24px', minHeight: '280px', margin: '16px 0' }">
+        <a-layout-content :style="{ background: '#fff', padding: '24px', minHeight: '280px', margin: '16px 0'  }">
           <span v-if="progressIdeas.length === 0">Пока что у вас нет идей! Давайте создадим первую!</span>
           <div v-if="currentTab[0] === '1' && openedCard === ''">
             <ProfileCard v-for="idea in progressIdeas" :key="idea.id" :record="idea" @cardOpened="openCard" />
@@ -57,6 +60,9 @@
               @changeInterestState="changeInterest"
             />
           </div>
+          <div v-if="currentTab[0] === '8' && openedCard === ''" >
+            <ProfileTeam v-for="teamPlay in userTeamsPage" :idea="teamPlay" :key="teamPlay.id" />
+          </div>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -66,6 +72,7 @@
 import ProfileIdea from "@/components/ProfileComponents/ProfileIdea";
 import ProfileCard from "@/components/ProfileComponents/ProfileCard";
 import Interest from "@/components/ProfileComponents/Interest";
+import ProfileTeam from "../components/ProfileComponents/ProfileTeam";
 import { map, sortBy, cloneDeep } from "lodash";
 
 export default {
@@ -73,7 +80,8 @@ export default {
   components: {
     ProfileIdea,
     ProfileCard,
-    Interest
+    Interest,
+    ProfileTeam
   },
   data() {
     return {
@@ -82,7 +90,8 @@ export default {
       openedCard: "",
       archIdeas: [],
       allInterests: [],
-      userInterests: []
+      userInterests: [],
+      userTeamsPage: []
     };
   },
   mounted() {
@@ -122,6 +131,10 @@ export default {
         });
         this.allInterests = sortBy(mappedValues, ["isChosen"]);
       }
+      if (e.key === "8" && !this.userTeamsPage.length) {
+        this.$store.dispatch("updateUserTeamsPage");
+        this.userTeamsPage = this.$store.getters.getUserTeamsPage;
+      }
     },
     changeInterest(interest) {
       const newChoice = !this.allInterests[this.allInterests.indexOf(interest)].isChosen;
@@ -144,6 +157,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.profile {
+  height: 100%;
+}
+
 .interestsWrapper {
   display: flex;
   flex-flow: row wrap;

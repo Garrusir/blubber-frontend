@@ -33,8 +33,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .idea-card__cardBody {
+  height: 100%;
   display: flex;
   flex-flow: row;
   align-items: center;

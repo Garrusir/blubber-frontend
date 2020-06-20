@@ -4,11 +4,9 @@ import router from "./router";
 import store from "./store";
 import "ant-design-vue/dist/antd.css";
 import moment from "moment";
-import _ from 'lodash';
 
 Vue.config.productionTip = false;
 Vue.prototype.$moment = moment;
-Vue.prototype.$lodash = _;
 
 import {
   Button,
@@ -25,7 +23,9 @@ import {
   Select,
   Upload,
   Layout,
-  PageHeader
+  PageHeader,
+  Avatar,
+  Card
 } from "ant-design-vue";
 const { Step } = Steps;
 // Vue.use(require('vue-moment'));
@@ -45,6 +45,8 @@ Vue.use(PageHeader);
 Vue.use(DatePicker);
 Vue.use(Select);
 Vue.use(Upload);
+Vue.use(Avatar);
+Vue.use(Card);
 
 new Vue({
   router,
