@@ -13,7 +13,7 @@
     </div>
 
     <div v-else class="profile">
-      <a-button @click="go('Profile')" type="normal" icon="user" size="large" shape="circle" />
+      <a-button @click="go('Profile')" type="normal" icon="user" size="large" shape="circle" style="margin-top: 5px;" />
     </div>
   </div>
 </template>

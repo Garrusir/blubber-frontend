@@ -47,6 +47,7 @@ export default {
   border: 1px solid #e6eaf0;
   transition: background-color 0.125s ease-out;
   margin-bottom: 20px;
+  max-width: unset;
 }
 .idea-card__cardBody:hover {
   background-color: #e1e3e8;

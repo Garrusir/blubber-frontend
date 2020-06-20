@@ -15,7 +15,7 @@
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub1">
-            <span slot="title"><a-icon type="fire" />Список твоих идей</span>
+            <span slot="title"><a-icon type="fire" />Мои идеи</span>
             <a-menu-item key="1" @click="handleNavClick">
               В разработке
             </a-menu-item>
@@ -47,8 +47,14 @@
         </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
-        <a-layout-content :style="{ background: '#fff', padding: '24px', minHeight: '280px', margin: '16px 0'  }">
-          <span v-if="progressIdeas.length === 0">Пока что у вас нет идей! Давайте создадим первую!</span>
+        <a-layout-content :style="{ background: '#fff', padding: '24px', minHeight: '280px', margin: '16px 0' }">
+          <span
+            v-if="
+              (progressIdeas.length === 0 && currentTab[0] === '1') || (archIdeas.length === 0 && currentTab[0] === '2')
+            "
+          >
+            Пока что у вас нет идей! Давайте создадим первую!
+          </span>
           <div v-if="currentTab[0] === '1' && openedCard === ''">
             <ProfileCard v-for="idea in progressIdeas" :key="idea.id" :record="idea" @cardOpened="openCard" />
           </div>
@@ -66,7 +72,14 @@
               @changeInterestState="changeInterest"
             />
           </div>
-          <div v-if="currentTab[0] === '8' && openedCard === ''" >
+          <div v-if="currentTab[0] === '10' && openedCard === ''">
+            <coffee-invite
+              v-for="invite in userInvites"
+              :key="invite.id"
+              :invite="invite"
+            />
+          </div>
+          <div v-if="currentTab[0] === '8' && openedCard === ''">
             <ProfileTeam v-for="teamPlay in userTeamsPage" :idea="teamPlay" :key="teamPlay.id" />
           </div>
         </a-layout-content>
@@ -79,6 +92,7 @@ import ProfileIdea from "@/components/ProfileComponents/ProfileIdea";
 import ProfileCard from "@/components/ProfileComponents/ProfileCard";
 import Interest from "@/components/ProfileComponents/Interest";
 import ProfileTeam from "../components/ProfileComponents/ProfileTeam";
+import CoffeeInvite from "../components/ProfileComponents/CoffeeInvite";
 import { map, sortBy, cloneDeep } from "lodash";
 
 export default {
@@ -87,7 +101,8 @@ export default {
     ProfileIdea,
     ProfileCard,
     Interest,
-    ProfileTeam
+    ProfileTeam,
+    CoffeeInvite
   },
   data() {
     return {
@@ -97,13 +112,14 @@ export default {
       archIdeas: [],
       allInterests: [],
       userInterests: [],
-      userTeamsPage: []
+      userTeamsPage: [],
+      userInvites: []
     };
   },
   mounted() {
     // this.$store.dispatch("updateProgressIdes");
     const userId = this.$store.getters.getUser.id;
-    console.log(userId)
+    console.log(userId);
     this.progressIdeas = this.$store.getters.getIdeaList.filter(idea => idea.author === userId);
 
     this.$store.dispatch("updateAllInterests");
@@ -142,6 +158,11 @@ export default {
       if (e.key === "8" && !this.userTeamsPage.length) {
         this.$store.dispatch("updateUserTeamsPage");
         this.userTeamsPage = this.$store.getters.getUserTeamsPage;
+      }
+      if (e.key === "10" && !this.userInvites.length) {
+        this.$store.dispatch("updateUserNotifications");
+        this.userInvites = this.$store.getters.getUserNotifications;
+        console.log(this.userInvites)
       }
     },
     changeInterest(interest) {
