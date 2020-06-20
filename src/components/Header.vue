@@ -72,5 +72,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin: 0 16px;
+  min-height: 48px;
 }
 </style>
