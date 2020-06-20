@@ -17,7 +17,7 @@ export default {
     setOpenLoginPopup(state, value) {
       state.openLoginPopup = value;
     },
-    SET_USER: (state, value) => {
+    setUser(state, value) {
       state.user = value;
     }
   },
