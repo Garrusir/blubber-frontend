@@ -28,6 +28,7 @@ export default {
   created() {
     const array = [this.$route.name];
     this.$store.commit("setCurrentPage", array);
+    this.$store.commit("setCurrentPage", array);
   },
   methods: {
     go(routeName) {
@@ -47,7 +48,7 @@ export default {
       }
     },
     user() {
-      return this.$store.getters.getUser();
+      return this.$store.getters.getUser;
     }
   },
   data() {
