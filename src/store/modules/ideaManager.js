@@ -45,7 +45,7 @@ export default {
       axios
         .post(`${host}/api/records/action`, {
           idea_id: ideaId,
-          userId: user.id,
+          userid: user.id,
           type: 1
         })
         .then(response => {
@@ -65,7 +65,7 @@ export default {
       axios
         .post(`${host}/api/records/action`, {
           idea_id: ideaId,
-          userId: user.id,
+          userid: user.id,
           type: 0
         })
         .then(response => {
