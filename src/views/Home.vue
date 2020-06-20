@@ -40,6 +40,6 @@ export default {
   background-color: #f3f5f7;
 }
 .list-wrapper {
-  max-width: 1200px;
+  max-width: 1732px;
 }
 </style>
