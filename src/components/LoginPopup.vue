@@ -1,15 +1,7 @@
 <template>
-  <a-modal
-    @cancel="handleCancel"
-    title="Авторизация"
-    :visible="visible"
-    :footer="null"
-  >
+  <a-modal @cancel="handleCancel" title="Авторизация" :visible="visible" :footer="null">
     <a-form :form="form" @submit="handleSubmit">
-      <a-form-item
-        :validate-status="userNameError() ? 'error' : ''"
-        :help="userNameError() || ''"
-      >
+      <a-form-item :validate-status="userNameError() ? 'error' : ''" :help="userNameError() || ''">
         <a-input
           v-decorator="[
             'login',
@@ -23,10 +15,7 @@
         </a-input>
       </a-form-item>
 
-      <a-form-item
-        :validate-status="passwordError() ? 'error' : ''"
-        :help="passwordError() || ''"
-      >
+      <a-form-item :validate-status="passwordError() ? 'error' : ''" :help="passwordError() || ''">
         <a-input
           v-decorator="[
             'password',
@@ -42,12 +31,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button
-          type="primary"
-          html-type="submit"
-          :loading="loading"
-          :disabled="hasErrors(form.getFieldsError())"
-        >
+        <a-button type="primary" html-type="submit" :loading="loading" :disabled="hasErrors(form.getFieldsError())">
           Войти
         </a-button>
       </a-form-item>

@@ -1,66 +1,63 @@
 <template>
-  <div v-bind:class="{ 'modal-wrapper': true, hidden: !isShown }" v-on:click="isShown = false">
-    <div class="modal">
-      <div class="modal-card">
-        <h2 class="modal-card__name">{{ record.name }}</h2>
+  <a-modal v-if="idea" @cancel="$emit('cancel')" :title="idea.name" :visible="visible" :footer="null">
+    <div class="idea-info">
+      <div v-if="idea.images">
+        <img :src="idea.images" :alt="idea.name" />
       </div>
-      <div class="modal-card__description">
-        <p>{{ record.description }}</p>
+
+      <div class="idea-info__description">
+        {{ idea.description }}
       </div>
-      <div class="modal-card__author">
-        <span>от {{ record.author }}</span>
-      </div>
-      <div class="modal-card__actions">
-        <a-button
-          class="modal-card__action"
-          type="primary"
-          icon="like"
-          size="large"
-          shape="circle"
-        />
-        <a-button
-          class="modal-card__action"
-          type="primary"
-          icon="dislike"
-          size="large"
-          shape="circle"
-        />
-        <a-button
-          class="modal-card__action"
-          type="primary"
-          icon="star"
-          size="large"
-          shape="circle"
-        />
-        <a-button
-          class="modal-card__action"
-          type="primary"
-          icon="message"
-          size="large"
-          shape="circle"
-        />
-        <a-button
-          class="modal-card__action"
-          type="primary"
-          size="large"
-          shape="circle">
-          ...
-        </a-button>
+
+      <div class="idea-info__status">
+        {{ message }}
       </div>
     </div>
-  </div>
+
+    <div class="idea-comments">
+      <h2>Комментарии</h2>
+
+      <div class="idea-comments__form">
+        <a-form @submit="this.sendComment">
+          <a-form-item>
+            <a-textarea
+              placeholder="Что вы об этом думаете?"
+              :auto-size="{ minRows: 3, maxRows: 5 }"
+              v-model="message"
+            />
+          </a-form-item>
+
+          <a-form-item>
+            <a-button htmlType="submit" style="width: 100%" type="primary"> Отправить </a-button>
+          </a-form-item>
+        </a-form>
+      </div>
+    </div>
+  </a-modal>
 </template>
 
 <script>
 export default {
   name: "ModalCard",
   props: {
-    record: Object,
-    isShown: Boolean
+    idea: {
+      type: Object,
+      default: () => {}
+    },
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    handleCancel() {
+      console.log("close modal");
+    },
+    sendComment() {}
   },
   data: () => {
     return {
-      isShown: false
+      message: ""
     };
   }
 };
@@ -74,7 +71,7 @@ export default {
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.25);
 }
-  .hidden {
-    display: none;
-  }
+.hidden {
+  display: none;
+}
 </style>

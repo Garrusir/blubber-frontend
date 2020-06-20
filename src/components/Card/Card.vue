@@ -5,49 +5,28 @@
         {{ record.description }}
       </div>
       <div v-else class="idea-card__image">
-        <img v-bind:src="record.images" v-bind:alt="record.name" />
+        <img :src="record.images" :alt="record.name" />
       </div>
       <div class="idea-card__actions">
-        <a-button
-          class="idea-card__action"
-          type="primary"
-          icon="like"
-          size="large"
-          shape="circle"
-        />
-        <a-button
-          class="idea-card__action"
-          type="primary"
-          icon="dislike"
-          size="large"
-          shape="circle"
-        />
-        <a-button
-          class="idea-card__action"
-          type="primary"
-          icon="star"
-          size="large"
-          shape="circle"
-        />
+        <a-button class="idea-card__action" type="primary" icon="like" size="large" shape="circle" />
+        <a-button class="idea-card__action" type="primary" icon="dislike" size="large" shape="circle" />
+        <a-button class="idea-card__action" type="primary" icon="star" size="large" shape="circle" />
         <a-button
           class="idea-card__action"
           type="primary"
           icon="message"
           size="large"
           shape="circle"
+          @click="$emit('openModal', record)"
         />
-        <a-button
-          class="idea-card__action"
-          type="primary"
-          size="large"
-          shape="circle">
+        <a-button class="idea-card__action" type="primary" size="large" shape="circle">
           ...
         </a-button>
       </div>
     </div>
     <div class="idea-card__name-wrapper">
       <span class="idea-card__name">
-        {{record.name}}
+        {{ record.name }}
       </span>
     </div>
   </div>
@@ -59,7 +38,8 @@
 export default {
   name: "IdeaCard",
   props: {
-    record: Array
+    record: Object,
+    default: () => {}
   }
   // components: { Button }
 };
@@ -94,7 +74,7 @@ export default {
   display: flex;
   flex-grow: 1;
   align-items: center;
-  background-color: #E6EAF0;
+  background-color: #e6eaf0;
 }
 
 .idea-card {
