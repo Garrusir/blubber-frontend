@@ -35,6 +35,10 @@
           Войти
         </a-button>
       </a-form-item>
+
+      <div v-if="error" class="error">
+        {{ error }}
+      </div>
     </a-form>
   </a-modal>
 </template>
@@ -63,6 +67,9 @@ export default {
     },
     visible() {
       return this.$store.getters.isOpenLoginPopup;
+    },
+    error() {
+      return this.$store.getters.getAuthError;
     }
   },
   methods: {
@@ -100,4 +107,9 @@ export default {
   }
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.error {
+  color: #fa3232;
+  font-weight: bold;
+}
+</style>

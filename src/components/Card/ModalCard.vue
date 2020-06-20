@@ -1,16 +1,13 @@
 <template>
   <a-modal v-if="idea" @cancel="$emit('cancel')" :title="idea.name" :visible="visible" :footer="null">
     <div class="idea-info">
-      <div v-if="idea.images">
-        <img :src="idea.images" :alt="idea.name" />
+      <div class="idea-info__image" v-if="idea.images">
+        <img :src="`${host}${idea.images}`" :alt="idea.name" />
       </div>
 
+      <h2>Описание</h2>
       <div class="idea-info__description">
         {{ idea.description }}
-      </div>
-
-      <div class="idea-info__status">
-        {{ message }}
       </div>
 
       <div class="idea-info__participants">
@@ -20,6 +17,10 @@
 
     <div class="idea-comments">
       <h2>Комментарии</h2>
+
+      <div>
+        <Comment />
+      </div>
 
       <div class="idea-comments__form">
         <a-form @submit="this.sendComment">
@@ -41,8 +42,13 @@
 </template>
 
 <script>
+import Comment from "./ModalCardComment";
+
 export default {
   name: "ModalCard",
+  components: {
+    Comment
+  },
   props: {
     idea: {
       type: Object,
@@ -51,6 +57,11 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    host() {
+      return this.$store.getters.getHost;
     }
   },
   methods: {
@@ -68,14 +79,9 @@ export default {
 </script>
 
 <style scoped>
-.modal-wrapper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  background-color: rgba(0, 0, 0, 0.25);
-}
-.hidden {
-  display: none;
+.idea-info__image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 </style>

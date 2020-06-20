@@ -4,7 +4,8 @@ import axios from "axios";
 export default {
   state: {
     user: null,
-    openLoginPopup: false
+    openLoginPopup: false,
+    authError: null
   },
   getters: {
     isOpenLoginPopup(state) {
@@ -12,6 +13,9 @@ export default {
     },
     getUser(state) {
       return state.user;
+    },
+    getAuthError(state) {
+      return state.authError;
     }
   },
   mutations: {
@@ -20,6 +24,9 @@ export default {
     },
     setUser(state, value) {
       state.user = value;
+    },
+    setError(state, value) {
+      state.authError = value;
     }
   },
   actions: {
@@ -31,10 +38,16 @@ export default {
       // const userJson = await postDataWithResponse(loginUrl, formData);
       const host = getters.getHost;
 
-      axios.post(`${host}/profile/login/`, formData).then(response => {
-        console.log("response", response);
-        commit("setUser", response);
-      });
+      axios
+        .post(`${host}/profile/login/`, formData)
+        .then(response => {
+          commit("setUser", response.data);
+          commit("setOpenLoginPopup", false);
+        })
+        .catch(error => {
+          console.log("Ошибка авторизации", error);
+          commit("setError", "Ошибка авторизации");
+        });
       // fetch(`${host}/profile/login/`, {
       //   method: "POST", // *GET, POST, PUT, DELETE, etc.
       //   // mode: "no-cors", // no-cors, *cors, same-origin
