@@ -143,7 +143,7 @@ export default {
   padding: 10px;
   border-radius: 10px;
   transition: background-color 0.125s ease-out;
-  width: 600px;
+  max-width: 600px;
   position: relative;
   min-height: 250px;
   margin-bottom: 10px;
@@ -162,6 +162,8 @@ export default {
 
 .idea-card__image {
   width: 100%;
+  max-height: 200px;
+  overflow: hidden;
 }
 .idea-card__image img {
   border-top-left-radius: 8px;
