@@ -1,28 +1,27 @@
 <template>
   <a-modal v-if="idea" @cancel="$emit('cancel')" :title="idea.name" :visible="visible" :footer="null">
     <div class="idea-info">
-      <div v-if="idea.images">
-        <img :src="idea.images" :alt="idea.name" />
+      <div class="idea-info__image" v-if="idea.images">
+        <img :src="`${host}${idea.images}`" :alt="idea.name" />
       </div>
 
+      <h2>Описание</h2>
       <div class="idea-info__description">
         {{ idea.description }}
       </div>
 
-      <div class="idea-info__status">
-        {{ message }}
-      </div>
-
-      <div class="idea-info__participants">
-        {{ message }}
-      </div>
+      <div class="idea-info__participants"></div>
     </div>
 
     <div class="idea-comments">
       <h2>Комментарии</h2>
 
+      <div>
+        <Comment />
+      </div>
+
       <div class="idea-comments__form">
-        <a-form @submit="this.sendComment">
+        <a-form>
           <a-form-item>
             <a-textarea
               placeholder="Что вы об этом думаете?"
@@ -32,7 +31,15 @@
           </a-form-item>
 
           <a-form-item>
-            <a-button htmlType="submit" style="width: 100%" type="primary"> Отправить </a-button>
+            <a-button
+              @click="sendComment"
+              htmlType="submit"
+              style="width: 100%"
+              type="primary"
+              :disabled="!this.message"
+            >
+              Отправить
+            </a-button>
           </a-form-item>
         </a-form>
       </div>
@@ -41,8 +48,13 @@
 </template>
 
 <script>
+import Comment from "./ModalCardComment";
+
 export default {
   name: "ModalCard",
+  components: {
+    Comment
+  },
   props: {
     idea: {
       type: Object,
@@ -53,11 +65,30 @@ export default {
       default: false
     }
   },
+  computed: {
+    host() {
+      return this.$store.getters.getHost;
+    },
+    user() {
+      return this.$store.getters.getUser;
+    }
+  },
   methods: {
     handleCancel() {
       console.log("close modal");
     },
-    sendComment() {}
+    sendComment(e) {
+      if (!this.message) return;
+
+      const comment = {
+        record: this.idea.id,
+        author: this.user.id,
+        text: this.message
+      };
+
+      this.$store.dispatch("sendComment", comment);
+      e.preventDefault();
+    }
   },
   data: () => {
     return {
@@ -67,15 +98,14 @@ export default {
 };
 </script>
 
-<style scoped>
-.modal-wrapper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  background-color: rgba(0, 0, 0, 0.25);
-}
-.hidden {
-  display: none;
+<style scoped lang="scss">
+.idea-info__image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+
+  img {
+    width: 100%;
+  }
 }
 </style>

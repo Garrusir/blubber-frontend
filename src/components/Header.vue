@@ -14,7 +14,7 @@
     </div>
 
     <div v-else class="profile">
-      <a-button type="normal" icon="user" size="large" shape="circle" />
+      <a-button @click="go('Profile')" type="normal" icon="user" size="large" shape="circle" />
     </div>
   </div>
 </template>
