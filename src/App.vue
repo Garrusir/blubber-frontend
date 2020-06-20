@@ -8,6 +8,7 @@
 <script>
 import Header from "./components/Header";
 import LoginPopup from "./components/LoginPopup";
+
 export default {
   components: {
     Header,

@@ -1,4 +1,5 @@
 // import { loginUrl, postDataWithResponse } from "../../utils/fetch-utils";
+import axios from "axios";
 
 export default {
   state: {
@@ -22,28 +23,42 @@ export default {
     }
   },
   actions: {
-    signUp({ commit, getters }, data) {
+    signUp({ commit, getters }, { login, password }) {
       // const formData = new FormData();
       // formData.append("username", login);
       // formData.append("password", password);
-      console.log("login data", data);
+      console.log("login data", login, password);
       // const userJson = await postDataWithResponse(loginUrl, formData);
       const host = getters.getHost;
 
-      fetch(`${host}/profile/login/`, {
-        method: "POST",
-        credentials: "omit",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => {
-          return response.json();
+      axios
+        .post(`${host}/profile/login/`, {
+          username: login,
+          password
         })
-        .then(data => {
-          commit("setUser", data);
+        .then(response => {
+          console.log("response", response);
+          commit("setUser", response);
         });
+      // fetch(`${host}/profile/login/`, {
+      //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+      //   // mode: "no-cors", // no-cors, *cors, same-origin
+      //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      //   credentials: "omit", // include, *same-origin, omit
+      //   "Access-Control-Allow-Origin": "*",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //     // 'Content-Type': 'application/x-www-form-urlencoded',
+      //   },
+      //   // body: JSON.stringify(data)
+      //   body: JSON.stringify({ username: login, password })
+      // })
+      //   .then(response => {
+      //     return response.json();
+      //   })
+      //   .then(data => {
+      //     commit("setUser", data);
+      //   });
     }
   }
 };

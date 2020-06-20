@@ -80,6 +80,7 @@ export default {
 .idea-card {
   display: flex;
   flex-grow: 3;
+  width: 100%;
   flex-flow: column nowrap;
   align-items: center;
   border-radius: 8px;

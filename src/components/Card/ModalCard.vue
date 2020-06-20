@@ -12,6 +12,10 @@
       <div class="idea-info__status">
         {{ message }}
       </div>
+
+      <div class="idea-info__participants">
+        {{ message }}
+      </div>
     </div>
 
     <div class="idea-comments">

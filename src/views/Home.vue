@@ -57,6 +57,10 @@ export default {
 </script>
 
 <style lang="scss">
+.list-wrapper {
+  margin: 10px;
+}
+
 .main-container {
   display: flex;
   flex-grow: 1;
