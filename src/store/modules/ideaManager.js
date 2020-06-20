@@ -32,14 +32,48 @@ export default {
         console.log("response", response);
       });
     },
-    likeIdea() {
-      console.log('liked')
+    likeIdea({ getters, commit }, ideaId) {
+      const host = getters.getHost;
+      const user = getters.getUser;
+
+      if (!user) {
+        commit("setOpenLoginPopup", true);
+        return;
+      }
+      // console.log(userId, ideaId, host)
+
+      axios
+        .post(`${host}/api/records/action`, {
+          idea_id: ideaId,
+          userId: user.id,
+          type: "like"
+        })
+        .then(response => {
+          console.log("response", response);
+        });
     },
-    dislikeIdea() {
-      console.log('disliked')
+    dislikeIdea({ getters, commit }, ideaId) {
+      const host = getters.getHost;
+      const user = getters.getUser;
+
+      if (!user) {
+        commit("setOpenLoginPopup", true);
+        return;
+      }
+      // console.log(userId, ideaId, host)
+
+      axios
+        .post(`${host}/api/records/action`, {
+          idea_id: ideaId,
+          userId: user.id,
+          type: "dislike"
+        })
+        .then(response => {
+          console.log("response", response);
+        });
     },
     starIdea() {
-      console.log('star')
+      console.log("star");
     }
   }
 };

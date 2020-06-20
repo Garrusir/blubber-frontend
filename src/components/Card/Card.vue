@@ -19,11 +19,11 @@
         <div v-if="isEstimated" class="idea-card__actionsOutlines">
           <a-icon type="like" :theme="mark === 'like' ? 'filled' : 'outlined'" />
           <span style="margin-right: 10px">
-            {{ likes }}
+            {{ record.likes_count + 1 }}
           </span>
           <a-icon type="dislike" :theme="mark === 'dislike' ? 'filled' : 'outlined'" />
           <span>
-            {{ dislikes }}
+            {{ record.dislikes_count + 1 }}
           </span>
         </div>
         <a-button
@@ -94,13 +94,19 @@ export default {
     },
     likeIdea() {
       this.$store.dispatch("likeIdea", this.record.id);
-      this.isEstimated = true;
-      this.mark = "like";
+
+      if (this.$store.getters.getUser) {
+        this.isEstimated = true;
+        this.mark = "like";
+      }
     },
     dislikeIdea() {
       this.$store.dispatch("dislikeIdea", this.record.id);
-      this.isEstimated = true;
-      this.mark = "dislike";
+
+      if (this.$store.getters.getUser) {
+        this.isEstimated = true;
+        this.mark = "dislike";
+      }
     },
     cutDescription(desc) {
       if (desc.length > 250) {
