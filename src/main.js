@@ -3,8 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "ant-design-vue/dist/antd.css";
+import moment from "moment";
 
 Vue.config.productionTip = false;
+Vue.prototype.$moment = moment;
 
 import {
   Button,
@@ -24,6 +26,7 @@ import {
   PageHeader
 } from "ant-design-vue";
 const { Step } = Steps;
+// Vue.use(require('vue-moment'));
 Vue.use(Layout);
 Vue.use(Button);
 Vue.use(Menu);

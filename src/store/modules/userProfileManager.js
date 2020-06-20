@@ -20,11 +20,11 @@ export default {
     }
   },
   actions: {
-    updateArchiveIdeas({ commit, getters }) {
+    updateArchiveIdeas({ commit }) {
       // fetch
-      const userId = getters.getUser.id;
+      // const userId = getters.getUser.id;
 
-      console.log("userId", userId);
+      // console.log("userId", userId);
       const data = [
         {
           id: 6,
@@ -56,30 +56,47 @@ export default {
 
       commit("setArchiveIdeas", data);
     },
-    updateProgressIdes({ commit, getters }) {
+    updateProgressIdes({ commit }) {
       // fetch
-      const userId = getters.getUser.id;
+      // const userId = getters.getUser.id;
 
-      console.log("userId", userId);
+      // console.log("userId", userId);
 
       const data = [
         {
           id: 6,
-          name: "asdfsdafd",
+          name: "Great Idea",
           images: "/media/images/hall2_ndsjvoz.jpg",
-          description: "asdsfdasd",
+          description: "Good and Long description for a card that will win in the run",
           categories: "6",
-          likes_count: 0,
-          dislikes_count: 0,
+          likes_count: 10,
+          dislikes_count: 30,
           threshold_of_success: 34,
           is_passed: false,
           status: -1,
           author: 1,
+          dayOfCreation: 'Sat Jun 15 2020 12:39:37 GMT+0300 (Москва, стандартное время)',
+          dayOfEnding: 'Sat Jun 29 2020 12:39:37 GMT+0300 (Москва, стандартное время)',
           achievements: [
             {
               id: 0,
+              title: "Создание",
+              description: "Вы разместили свою идею на портале!"
+            },
+            {
+              id: 1,
               title: "Первый лайк",
-              description: "Ваша идея кому-то понравилась"
+              description: "Ого, первый заинтересовавшийся! Дальше - больше!"
+            },
+            {
+              id: 2,
+              title: "Первый комментарий",
+              description: "У кого-то появились мысли по поводу вашей идеи, читайте скорее!"
+            },
+            {
+              id: 3,
+              title: "10 лайков",
+              description: "Разгоняемся!"
             }
           ]
         }
