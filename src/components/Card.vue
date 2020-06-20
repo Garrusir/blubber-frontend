@@ -99,7 +99,7 @@ export default {
 }
 
 .daysLeft {
-  padding: 10px;
+  padding: 10px !important;
 }
 
 .idea-card__actions {
