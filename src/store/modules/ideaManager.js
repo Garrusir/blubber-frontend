@@ -46,7 +46,7 @@ export default {
         .post(`${host}/api/records/action`, {
           idea_id: ideaId,
           userId: user.id,
-          type: "like"
+          type: 1
         })
         .then(response => {
           console.log("response", response);
@@ -66,7 +66,7 @@ export default {
         .post(`${host}/api/records/action`, {
           idea_id: ideaId,
           userId: user.id,
-          type: "dislike"
+          type: 0
         })
         .then(response => {
           console.log("response", response);
