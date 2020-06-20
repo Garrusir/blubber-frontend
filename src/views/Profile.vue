@@ -101,8 +101,10 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("updateProgressIdes");
-    this.progressIdeas = this.$store.getters.getProgressIdes;
+    // this.$store.dispatch("updateProgressIdes");
+    const userId = this.$store.getters.getUser.id;
+    console.log(userId)
+    this.progressIdeas = this.$store.getters.getIdeaList.filter(idea => idea.author === userId);
 
     this.$store.dispatch("updateAllInterests");
     this.allInterests = this.$store.getters.getAllInterests;

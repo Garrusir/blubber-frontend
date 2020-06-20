@@ -111,6 +111,7 @@ export default {
             formData.append(entry[0], entry[1]);
           });
           this.imagesList.forEach(image => formData.append("images[]", image));
+          formData.append("author", this.$store.getters.getUser.id);
 
           // postDataWithoutResponse(recordsUrl, formData);
           this.$store.dispatch("saveIdea", formData).then(() => {
