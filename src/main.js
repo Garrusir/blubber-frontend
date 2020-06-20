@@ -18,7 +18,8 @@ import {
   Input,
   Icon,
   DatePicker,
-  Select
+  Select,
+  Upload
 } from "ant-design-vue";
 const { Step } = Steps;
 Vue.use(Button);
@@ -34,6 +35,7 @@ Vue.use(Step);
 Vue.use(Tooltip);
 Vue.use(DatePicker);
 Vue.use(Select);
+Vue.use(Upload);
 
 new Vue({
   router,

@@ -1,30 +1,46 @@
 <template>
   <div class="main-container">
-    <div class="add-idea-form">
-      <div class="add-idea-form__item">
-        <a-input placeholder="Название" />
-      </div>
+    <a-form :form="form" @submit="this.sendPost">
+      <a-form-item>
+        <a-input v-decorator="['name', { rules: [{ required: true, message: 'Пожалуйста, введите название для идеи'} ]}]" placeholder="Название"/>
+      </a-form-item>
 
-      <div class="add-idea-form__item">
-        <a-textarea placeholder="Описание идеи" :auto-size="{ minRows: 3, maxRows: 5 }" />
-      </div>
+      <a-form-item>
+        <a-textarea v-decorator="['description', { rules: [{ required: true, message: 'Пожалуйста, введите описание для идеи'} ]}]" placeholder="Описание идеи" :auto-size="{ minRows: 3, maxRows: 5 }"/>
+      </a-form-item>
 
-      <div class="add-idea-form__item">
-        <a-select default-value="Выберите отдел" style="width: 100%" @change="handleChange">
+      <a-form-item>
+        <a-input v-decorator="['threshold_of_success', { rules: [{ required: true, message: 'Пожалуйста, введите порог успешности для идеи'} ]}]" placeholder="Порог успешности"/>
+      </a-form-item>
+
+      <a-form-item>
+        <a-select v-decorator="['categories', { rules: [{ required: true, message: 'Пожалуйста, выберите категории вашей идеи'} ], initialValue: 'Выберите отдел'}]" style="width: 100%">
           <a-select-option v-for="department in departmentList" :key="department.id" :value="department.id">
             {{ department.name }}
           </a-select-option>
         </a-select>
-      </div>
+      </a-form-item>
 
-      <div class="add-idea-form__item">
-        <a-button style="width: 100%" type="primary"> Создать идею </a-button>
-      </div>
-    </div>
+      <a-form-item>
+        <a-upload
+          name="images"
+          :before-upload="beforeUpload"
+          :multiple="true"
+        >
+          <a-button> <a-icon type="upload" /> Click to Upload </a-button>
+        </a-upload>
+      </a-form-item>
+
+      <a-form-item>
+        <a-button htmlType="submit" style="width: 100%" type="primary"> Создать идею </a-button>
+      </a-form-item>
+    </a-form>
   </div>
 </template>
 
 <script>
+import { postRecords, recordsUrl } from "../utils/fetch-utils";
+//TODO: Использовать VUEX
 export default {
   name: "AddIdea",
   computed: {
@@ -61,13 +77,34 @@ export default {
       ];
     }
   },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, { name: "addIdea" });
+  },
   methods: {
-    handleChange(value) {
-      console.log(value);
-    }
+    sendPost(e) {
+      e.preventDefault();
+      this.form.validateFieldsAndScroll((err, values) => {
+        if (!err) {
+          const formData = new FormData();
+          Object.entries(values).forEach(entry => {
+            formData.append(entry[0], entry[1]);
+          });
+          this.imagesList.forEach(image => formData.append("images[]", image));
+
+          postRecords(recordsUrl, formData);
+          this.imagesList = [];
+        }
+      });
+    },
+    beforeUpload(file) {
+      this.imagesList = [...this.imagesList, file];
+      return false;
+    },
   },
   data() {
-    return {};
+    return {
+      imagesList: []
+    };
   }
 };
 </script>

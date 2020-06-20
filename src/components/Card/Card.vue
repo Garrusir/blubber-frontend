@@ -1,8 +1,11 @@
 <template>
   <div class="idea-card__cardBody">
-    <div class="idea-card">
-      <div class="idea-card__description">
-        <slot name="description"></slot>
+    <div v-on:click="$emit('card:open', record)" class="idea-card">
+      <div v-if="record.images === null" class="idea-card__description">
+        {{ record.description }}
+      </div>
+      <div v-else class="idea-card__image">
+        <img v-bind:src="record.images" v-bind:alt="record.name" />
       </div>
       <div class="idea-card__actions">
         <a-button
@@ -44,7 +47,7 @@
     </div>
     <div class="idea-card__name-wrapper">
       <span class="idea-card__name">
-        <slot name="name"></slot>
+        {{record.name}}
       </span>
     </div>
   </div>
@@ -54,7 +57,10 @@
 // import Button from "./Button";
 
 export default {
-  name: "IdeaCard"
+  name: "IdeaCard",
+  props: {
+    record: Array
+  }
   // components: { Button }
 };
 </script>
@@ -78,6 +84,10 @@ export default {
   color: #434343;
   font-size: 16px;
   font-weight: bold;
+}
+
+.idea-card__image img {
+  width: 100%;
 }
 
 .idea_card__stats {
